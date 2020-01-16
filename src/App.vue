@@ -1,7 +1,8 @@
 <template lang="html">
   <div>
     <beer-select v-bind:beers="beers"></beer-select>
-    <beer-details v-bind:beer="selectedBeer"></beer-details>
+    <beer-details v-if="selectedBeer" v-bind:beer="selectedBeer"></beer-details>
+    <favourite-beers v-if="favouriteBeers" v-bind:favouriteBeers="favouriteBeers"></favourite-beers>
   </div>
 </template>
 
@@ -10,6 +11,7 @@
 import { eventBus } from './main.js'
 import BeerSelect from './components/BeerSelect.vue'
 import BeerDetails from './components/BeerDetails.vue'
+import FavouriteBeers from './components/FavouriteBeers.vue'
 
 export default {
   name: 'app',
@@ -37,7 +39,8 @@ export default {
   },
   components: {
     "beer-select": BeerSelect,
-    "beer-details": BeerDetails
+    "beer-details": BeerDetails,
+    "favourite-beers": FavouriteBeers
   },
   methods: {
     findBeerById(id) {
