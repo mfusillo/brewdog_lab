@@ -1,8 +1,16 @@
 <template lang="html">
   <div>
-    <beer-select v-bind:beers="beers"></beer-select>
-    <beer-details v-if="selectedBeer" v-bind:isFavourite="isAlreadyFavourite(selectedBeer.id)"  v-bind:beer="selectedBeer"></beer-details>
-    <favourite-beers v-if="favouriteBeers" v-bind:favouriteBeers="favouriteBeers"></favourite-beers>
+    <div class="selection-wrapper">
+      <h1>Choose a beer:</h1>
+      <beer-select v-bind:beers="beers"></beer-select>
+      <button v-on:click="toggleFavourite">Favourite Beers</button>
+    </div>
+
+
+    <favourite-beers v-if="favouriteBeers && showFavourites" v-bind:favouriteBeers="favouriteBeers"></favourite-beers>
+
+    <beer-details v-if="selectedBeer" v-bind:isFavourite="isAlreadyFavourite(selectedBeer.id)"  v-bind:beer="selectedBeer" ></beer-details>
+
   </div>
 </template>
 
@@ -20,7 +28,8 @@ export default {
       beers: [],
       // selectedBeerId: null,
       selectedBeer: null,
-      favouriteBeers: []
+      favouriteBeers: [],
+      showFavourites: false
     }
   },
   mounted(){
@@ -50,10 +59,30 @@ export default {
     },
     isAlreadyFavourite(id) {
       return this.favouriteBeers.map(beer => beer.id).includes(id)
-  }
+  },
+    toggleFavourite() {
+      this.showFavourites = !this.showFavourites
+
+    }
 }
 }
 </script>
 
-<style lang="css" scoped>
+<style lang="css">
+img {
+  height: 12rem;
+  margin: 1rem;
+}
+
+
+button {
+  margin: 1rem;
+}
+
+.selection-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 </style>
