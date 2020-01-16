@@ -8,6 +8,7 @@
 
 <script>
 
+import { eventBus } from '../main.js'
 export default {
   name: 'beer-select',
   props: ['beers'],
@@ -15,7 +16,13 @@ export default {
     return {
       selection: null
     }
+  },
+  watch: {
+    selection(value) {
+      eventBus.$emit('beer-selected', value)
+    }
   }
+
 }
 
 </script>
