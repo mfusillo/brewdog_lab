@@ -16,8 +16,9 @@ export default {
   data(){
     return {
       beers: [],
-      selectedBeerId: null,
-      selectedBeer: null
+      // selectedBeerId: null,
+      selectedBeer: null,
+      favouriteBeers: []
     }
   },
   mounted(){
@@ -25,9 +26,13 @@ export default {
     .then(result => result.json())
     .then(beers => this.beers = beers)
 
-    eventBus.$on('beer-selected', (value) => {
-      this.selectedBeerId = value
-      this.findBeerById()
+    eventBus.$on('beer-selected', (id) => {
+      // this.selectedBeerId = value
+      this.selectedBeer = this.findBeerById(id)
+    })
+
+    eventBus.$on('favourite-beer', (id) =>{
+      this.favouriteBeers.push(this.findBeerById(id))
     })
   },
   components: {
@@ -35,8 +40,8 @@ export default {
     "beer-details": BeerDetails
   },
   methods: {
-    findBeerById() {
-      return this.selectedBeer = this.beers.find(beer => beer.id === this.selectedBeerId)
+    findBeerById(id) {
+      return this.beers.find(beer => beer.id === id)
     }
   }
 }

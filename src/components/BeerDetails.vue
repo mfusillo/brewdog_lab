@@ -1,6 +1,7 @@
 <template lang="html">
  <div>
    <h1>{{ beer.name }}</h1>
+   <button type="button" v-on:click="addFavouriteBeer"></button>
    <dl>
 
      <dt></dt>
@@ -19,11 +20,19 @@
 
 <script>
 
+import { eventBus } from '../main.js'
+
 export default {
   name: 'beer-details',
   props: ['beer'],
   data(){
-    favouriteBeerSelected: null
+    // isFavourite: null
+  },
+  methods: {
+    addFavouriteBeer(){
+     eventBus.$emit('favourite-beer', this.beer.id)
+
+    }
   }
 }
 
