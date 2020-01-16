@@ -34,7 +34,9 @@ export default {
     })
 
     eventBus.$on('favourite-beer', (id) =>{
+      if(!this.isAlreadyFavourite(id)){
       this.favouriteBeers.push(this.findBeerById(id))
+      }
     })
   },
   components: {
@@ -45,6 +47,9 @@ export default {
   methods: {
     findBeerById(id) {
       return this.beers.find(beer => beer.id === id)
+    },
+    isAlreadyFavourite(id) {
+      return this.favouriteBeers.find(beer => beer.id === id)
     }
   }
 }
