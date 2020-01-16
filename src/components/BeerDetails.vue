@@ -1,7 +1,7 @@
 <template lang="html">
  <div>
    <h1>{{ beer.name }}</h1>
-   <button type="button" v-on:click="addFavouriteBeer">Add To Favourites</button>
+   <button type="button" v-if="!isFavourite" v-on:click="addFavouriteBeer">Add To Favourites</button>
    <dl>
 
      <dt></dt>
@@ -24,7 +24,7 @@ import { eventBus } from '../main.js'
 
 export default {
   name: 'beer-details',
-  props: ['beer'],
+  props: ['beer', 'isFavourite'],
   // data(){
   //   // isFavourite: null
   // },

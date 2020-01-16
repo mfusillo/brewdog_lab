@@ -1,7 +1,7 @@
 <template lang="html">
   <div>
     <beer-select v-bind:beers="beers"></beer-select>
-    <beer-details v-if="selectedBeer" v-bind:beer="selectedBeer"></beer-details>
+    <beer-details v-if="selectedBeer" v-bind:isFavourite="isAlreadyFavourite(selectedBeer.id)"  v-bind:beer="selectedBeer"></beer-details>
     <favourite-beers v-if="favouriteBeers" v-bind:favouriteBeers="favouriteBeers"></favourite-beers>
   </div>
 </template>
@@ -34,7 +34,7 @@ export default {
     })
 
     eventBus.$on('favourite-beer', (id) =>{
-      if(!this.isAlreadyFavourite(id)){
+      if (!this.isAlreadyFavourite(id)) {
       this.favouriteBeers.push(this.findBeerById(id))
       }
     })
@@ -49,11 +49,10 @@ export default {
       return this.beers.find(beer => beer.id === id)
     },
     isAlreadyFavourite(id) {
-      return this.favouriteBeers.find(beer => beer.id === id)
-    }
+      return this.favouriteBeers.map(beer => beer.id).includes(id)
   }
 }
-
+}
 </script>
 
 <style lang="css" scoped>
